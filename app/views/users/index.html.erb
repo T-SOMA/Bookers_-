@@ -1,0 +1,72 @@
+
+<div class="body">
+	<div class="container">
+		<p id="notice"><%= flash[:notice] %></p>
+
+		<div class="row">
+			<div class="col-xs-3">
+				<h2>User info</h2>
+				<%= attachment_image_tag current_user, :profile_image, :fill, 100, 100, fallback: "no_image.jpg" %><br>
+
+				<table class="table">
+					<thead>
+						<tr>
+							<th>name</th>
+							<th><%= current_user.name %></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th>introduction</th>
+							<th><%= current_user.introduction %></th>
+						</tr>
+					</tbody>
+				</table>
+
+				<% if current_user.id == current_user.id %>
+					<p><%= link_to "Edit", edit_user_path(current_user),class: "btn btn-default btn-block" %></p>
+				<% end %>
+
+
+				<h2>New book</h2>
+				<%= form_for(Book.new) do |f|  %>
+					<div class="field">
+						<label for="book_title">Title</label><br>
+					    <%= f.text_field :title %>
+					</div>
+					<div class="field">
+						<label for="book_body">Opinion</label><br>
+					    <%= f.text_area :body %>
+					</div>
+					<div class="actions">
+						<%= f.submit 'Create Book', class: "btn btn-primary btn-block" %>
+					</div>
+				<% end %>
+			</div>
+
+			<div class="col-xs-9">
+				<h2>Users</h2>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>image</th>
+							<th>name</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<% @users.each do |user| %>
+							<tr>
+								<td>
+									<%= attachment_image_tag user, :profile_image, :fill, 40, 40, fallback: "no_image.jpg" %>
+								</td>
+								<td><%= user.name %></td>
+								<td><%= link_to "Show", user_path(user.id) %></td>
+							</tr>
+						<% end %>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
